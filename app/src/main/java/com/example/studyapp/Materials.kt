@@ -1,13 +1,22 @@
 package com.example.studyapp
 
-class Materials(private var title:String,private var shortDescription:String,private var longDescription:String) {
-    fun getTitle():String{
-        return title
-    }
-    fun getShortDescription():String{
-        return shortDescription
-    }
-    fun getLongDescription():String{
-        return longDescription
-    }
-}
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+@Entity(tableName = "KotlinMaterials")
+data class KotlinMaterials (
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "Id") val id : Int = 0, // this is how can include id if needed
+    @ColumnInfo(name = "Title") val title: String,
+    @ColumnInfo(name = "ShortDescription") val shortDescription: String,
+    @ColumnInfo(name = "LongDescription") val longDescription: String
+)
+
+@Entity(tableName = "AndroidMaterials")
+data class AndroidMaterials (
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "Id") val id : Int = 0, // this is how can include id if needed
+    @ColumnInfo(name = "Title") val title: String,
+    @ColumnInfo(name = "ShortDescription") val shortDescription: String,
+    @ColumnInfo(name = "LongDescription") val longDescription: String
+)
