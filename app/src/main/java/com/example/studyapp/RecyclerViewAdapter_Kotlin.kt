@@ -2,6 +2,8 @@ package com.example.studyapp
 
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,8 +68,12 @@ class RecyclerViewAdapter_Kotlin(
             ivEdit.setOnClickListener {
                 val builder = android.app.AlertDialog.Builder(context)
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.edit_review, null)
-                val alertDialog: android.app.AlertDialog = builder.create()
                 builder.setView(dialogView)
+                val alertDialog: android.app.AlertDialog = builder.create()
+                dialogView.cvReviewTitle.setText(data.title)
+                dialogView.cvShortDescription.setText(data.shortDescription)
+                dialogView.cvLongDescription.setText(data.longDescription)
+
                 dialogView.cvEdit.setOnClickListener {
                     val reviewTitle = dialogView.cvReviewTitle.text.toString()
                     val shortDecryption = dialogView.cvShortDescription.text.toString()
@@ -76,7 +82,7 @@ class RecyclerViewAdapter_Kotlin(
 
                         materialsDatabase.materialsDao().updateKotlinReview(
                             KotlinMaterials(
-                                0,
+                                data.id,
                                 reviewTitle,
                                 shortDecryption,
                                 longDecryption
@@ -95,6 +101,12 @@ class RecyclerViewAdapter_Kotlin(
                     }
                     activity.readFromDB()
                 }
+                dialogView.cvCancel.setOnClickListener {
+                    alertDialog.cancel()
+                }
+                // Set other dialog properties
+                alertDialog.setCancelable(true)
+                alertDialog.show()
             }
             ivDelete.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
